@@ -1,0 +1,9 @@
+<p class="lead text-success">Parent Component</p>
+
+<button class="btn btn-primary btn-sm" (click)="increaseCount()">Increase Count</button>
+<button class="btn btn-primary btn-sm ms-2" (click)="decreaseCount()">Decrease Count</button>
+<button class="btn btn-primary btn-sm ms-2" (click)="changeChildMessageFromParent()">Change Child Message From Parent</button>
+
+<p>Message from child: {{ childMessageName }}</p>
+
+<app-share-data-first-child [parentCounter]="countIndex" [parentHeading]="childHeading" (childMessage)="setChildMessage($event)"></app-share-data-first-child>
