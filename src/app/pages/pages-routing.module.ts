@@ -19,6 +19,14 @@ const routes: Routes = [
         loadChildren: () => import('./share-data/share-data.module').then(mod => mod.ShareDataModule)
     },
     {
+        path: 'share-data-using-service',
+        loadChildren: () => import('./share-data-using-service/share-data-using-service.module').then(mod => mod.ShareDataUsingServiceModule)
+    },
+    {
+        path: 'custom-pipes',
+        loadChildren: () => import('./custom-pipes/custom-pipes.module').then(mod => mod.CustomPipesModule)
+    },
+    {
         path: "contact-us",
         loadChildren: () => import('./contact-us/contact-us.module').then(mod => mod.ContactUsModule)
     }
