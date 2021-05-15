@@ -27,6 +27,14 @@ const routes: Routes = [
         loadChildren: () => import('./custom-pipes/custom-pipes.module').then(mod => mod.CustomPipesModule)
     },
     {
+        path: 'blog-posts',
+        loadChildren: () => import('./blog/posts/posts.module').then(mod => mod.PostsModule)
+    },
+    {
+        path: 'post-details/:id',
+        loadChildren: () => import('./blog/post-details/post-details.module').then(mod => mod.PostDetailsModule)
+    },
+    {
         path: "contact-us",
         loadChildren: () => import('./contact-us/contact-us.module').then(mod => mod.ContactUsModule)
     }
