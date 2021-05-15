@@ -36,10 +36,11 @@ export class ContactUsComponent implements OnInit {
         if (this.contactForm.valid) {
             this.validationRequired = false;
             console.log(this.contactForm.value);
+            this.formSubmitted = false;
             alert("Form submitted");
+
             // Reset the complete form
             this.contactForm.reset();
-            this.formSubmitted = false;
         } else {
             this.validationRequired = true;
         }

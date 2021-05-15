@@ -6,7 +6,36 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NumbertowordsPipe implements PipeTransform {
 
     transform(value: any, ...args: unknown[]): unknown {
-        let words = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        let words = [];
+
+        words[0] = '';
+        words[1] = 'One';
+        words[2] = 'Two';
+        words[3] = 'Three';
+        words[4] = 'Four';
+        words[5] = 'Five';
+        words[6] = 'Six';
+        words[7] = 'Seven';
+        words[8] = 'Eight';
+        words[9] = 'Nine';
+        words[10] = 'Ten';
+        words[11] = 'Eleven';
+        words[12] = 'Twelve';
+        words[13] = 'Thirteen';
+        words[14] = 'Fourteen';
+        words[15] = 'Fifteen';
+        words[16] = 'Sixteen';
+        words[17] = 'Seventeen';
+        words[18] = 'Eighteen';
+        words[19] = 'Nineteen';
+        words[20] = 'Twenty';
+        words[30] = 'Thirty';
+        words[40] = 'Forty';
+        words[50] = 'Fifty';
+        words[60] = 'Sixty';
+        words[70] = 'Seventy';
+        words[80] = 'Eighty';
+        words[90] = 'Ninety';
 
         let amount = value.toString();
 
@@ -44,6 +73,7 @@ export class NumbertowordsPipe implements PipeTransform {
                 } else {
                     value = n_array[i];
                 }
+
                 if (value != 0) {
                     words_string += words[value] + " ";
                 }
@@ -62,7 +92,10 @@ export class NumbertowordsPipe implements PipeTransform {
                     words_string += "Hundred ";
                 }
             }
+
             words_string = words_string.split("  ").join(" ");
+        } else {
+            words_string = "Out of range";
         }
 
         return words_string;
