@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { BlogServiceService } from 'src/app/core/services/blog-service.service';
+import { Post } from 'src/app/shared/models/post.model';
 
 @Component({
     selector: 'app-post-details',
@@ -9,7 +11,7 @@ import { BlogServiceService } from 'src/app/core/services/blog-service.service';
 })
 export class PostDetailsComponent implements OnInit {
 
-    postDetails: any;
+    postDetails: Observable<Post> = of();
 
     constructor(
         private route: ActivatedRoute,
@@ -24,7 +26,7 @@ export class PostDetailsComponent implements OnInit {
         let author = this.route.snapshot.queryParamMap.get("author");
 
         if (postId) {
-            this.blogService.getPostDetails(postId).then(data => this.postDetails = data).catch(err => console.log("Error: ", err));
+            this.postDetails = this.blogService.getPostDetails(postId);
         }
     }
 

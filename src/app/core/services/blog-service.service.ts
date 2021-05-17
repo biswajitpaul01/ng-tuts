@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Post } from 'src/app/shared/models/post.model';
 
 @Injectable({
     providedIn: 'root'
@@ -10,12 +13,12 @@ export class BlogServiceService {
 
     constructor(private http: HttpClient) { }
 
-    getPosts() {
-        return this.http.get(`${this.baseUrl}/posts`).toPromise();
+    getPosts(): Observable<Post[]> {
+        return this.http.get<Post[]>(`${this.baseUrl}/posts`).pipe(shareReplay());
     }
 
-    getPostDetails(postId: number) {
-        return this.http.get(`${this.baseUrl}/posts/${postId}`).toPromise();
+    getPostDetails(postId: number): Observable<Post> {
+        return this.http.get<Post>(`${this.baseUrl}/posts/${postId}`).pipe(shareReplay());
     }
 
     handleError(error: any) {
@@ -23,3 +26,4 @@ export class BlogServiceService {
     }
 
 }
+
