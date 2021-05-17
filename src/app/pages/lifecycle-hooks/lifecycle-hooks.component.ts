@@ -7,42 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LifecycleHooksComponent implements OnInit {
 
-    data = "Hello";
+    msg: string;
 
     constructor() {
-        console.log(`constructor - data is ${this.data}`);
-    }
-
-    ngOnChanges() {
-        console.log(`ngOnChanges - data is ${this.data}`);
+        this.msg = "Helllo";
     }
 
     ngOnInit(): void {
-        console.log(`ngOnInit  - data is ${this.data}`);
     }
 
-    ngDoCheck() {
-        console.log("ngDoCheck")
-    }
-
-    ngAfterContentInit() {
-        console.log("ngAfterContentInit");
-    }
-
-    ngAfterContentChecked() {
-        console.log("ngAfterContentChecked");
-    }
-
-    ngAfterViewInit() {
-        console.log("ngAfterViewInit");
-    }
-
-    ngAfterViewChecked() {
-        console.log("ngAfterViewChecked");
-    }
-
-    ngOnDestroy() {
-        console.log("ngOnDestroy");
+    changeChildMessage() {
+        this.msg = Math.random().toString(36).substring(7);
     }
 
 }

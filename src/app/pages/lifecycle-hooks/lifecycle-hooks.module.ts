@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { LifecycleHooksRoutingModule } from './lifecycle-hooks-routing.module';
 import { LifecycleHooksComponent } from './lifecycle-hooks.component';
+import { LifecycleHooksChildComponent } from './lifecycle-hooks-child/lifecycle-hooks-child.component';
 
 
 @NgModule({
   declarations: [
-    LifecycleHooksComponent
+    LifecycleHooksComponent,
+    LifecycleHooksChildComponent
   ],
   imports: [
     CommonModule,
