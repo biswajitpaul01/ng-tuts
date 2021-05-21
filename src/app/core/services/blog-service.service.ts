@@ -9,7 +9,7 @@ import { Post } from 'src/app/shared/models/post.model';
 })
 export class BlogServiceService {
 
-    baseUrl: string = "https://jsonplaceholder.typicode.com";
+    baseUrl: string = 'https://jsonplaceholder.typicode.com';
 
     constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class BlogServiceService {
     }
 
     handleError(error: any) {
-        console.error("Catched error: ", error);
+        console.error('Catched error: ', error);
     }
 
 }

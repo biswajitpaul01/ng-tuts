@@ -10,13 +10,13 @@ export class LifecycleHooksComponent implements OnInit {
     msg: string;
 
     constructor() {
-        this.msg = "Helllo";
+        this.msg = 'Helllo';
     }
 
     ngOnInit(): void {
     }
 
-    changeChildMessage() {
+    changeChildMessage(): void {
         this.msg = Math.random().toString(36).substring(7);
     }
 

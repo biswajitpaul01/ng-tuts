@@ -18,7 +18,7 @@ export class ContactUsComponent implements OnInit {
         this.generateForm();
     }
 
-    generateForm() {
+    generateForm(): void {
         this.contactForm = this.fb.group({
             contactName: new FormControl('', [Validators.required]),
             email: new FormControl('', [Validators.required, Validators.email]),
@@ -30,14 +30,14 @@ export class ContactUsComponent implements OnInit {
         return this.contactForm.controls;
     }
 
-    sendMessage() {
+    sendMessage(): void {
         this.formSubmitted = true;
 
         if (this.contactForm.valid) {
             this.validationRequired = false;
             console.log(this.contactForm.value);
             this.formSubmitted = false;
-            alert("Form submitted");
+            alert('Form submitted');
 
             // Reset the complete form
             this.contactForm.reset();

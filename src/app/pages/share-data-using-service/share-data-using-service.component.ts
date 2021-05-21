@@ -9,7 +9,7 @@ import { MyDataServiceService } from 'src/app/core/services/my-data-service.serv
 })
 export class ShareDataUsingServiceComponent implements OnInit, OnDestroy {
 
-    message: string = "";
+    message: string = '';
     messageSubscription: any;
 
     constructor(private dataService: MyDataServiceService) { }
@@ -18,17 +18,17 @@ export class ShareDataUsingServiceComponent implements OnInit, OnDestroy {
         this.messageSubscription = this.dataService.currentMessage.subscribe(message => this.message = message);
     }
 
-    sendNewMessage() {
+    sendNewMessage(): void {
         this.dataService.changeMessage(this.message);
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
-            console.log("Subscription destroyed from ShareDataUsingServiceComponent");
+            console.log('Subscription destroyed from ShareDataUsingServiceComponent');
         }
 
-        console.log("Component destroyed from ShareDataUsingServiceComponent");
+        console.log('Component destroyed from ShareDataUsingServiceComponent');
     }
 
 }
