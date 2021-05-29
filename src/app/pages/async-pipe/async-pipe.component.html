@@ -1,0 +1,27 @@
+<p>async-pipe works!</p>
+
+<h1 class="display-6 text-info text-center">Breaking Bad Characters</h1>
+
+<div class="blog-container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
+        <div class="col" *ngFor="let character of characters$ | async">
+            <div class="card shadow-sm">
+                <img [src]="character.img" [alt]="character.name" height="240" [ngStyle]="{objectFit: 'cover'}">
+
+                <div class="card-body">
+                    <p class="card-text text-center">{{ character.name | titlecase }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+<!--                        <a [routerLink]="['/async-pipes', character.char_id]" class="btn btn-sm btn-block btn-outline-secondary flex-fill">View</a>-->
+                        <a [routerLink]="['./', character.char_id]" class="btn btn-sm btn-block btn-outline-secondary flex-fill">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="character$ | async">
+        <div class="col-3">
+            <img [src]="character$.img" [alt]="character$.name">
+        </div>
+        <div class="col-9"></div>
+    </div>
+</div>

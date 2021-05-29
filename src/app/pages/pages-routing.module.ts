@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {AsyncPipeComponent} from './async-pipe/async-pipe.component';
 
 const routes: Routes = [
     {
@@ -7,7 +8,7 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
     },
     {
-        path: "webforms",
+        path: 'webforms',
         loadChildren: () => import('./web-forms/web-forms.module').then(mod => mod.WebFormsModule)
     },
     {
@@ -31,11 +32,22 @@ const routes: Routes = [
         loadChildren: () => import('./blog/posts/posts.module').then(mod => mod.PostsModule)
     },
     {
+        path: 'async-pipes',
+        // loadChildren: () => import('./async-pipe/async-pipe-routing.module').then(mod => mod.AsyncPipeRoutingModule),
+        component: AsyncPipeComponent,
+        children: [
+            {
+                path: ':id',
+                loadChildren: () => import('./async-pipe/async-pipe-routing.module').then(mod => mod.AsyncPipeRoutingModule),
+            }
+        ]
+    },
+    {
         path: 'post-details/:id',
         loadChildren: () => import('./blog/post-details/post-details.module').then(mod => mod.PostDetailsModule)
     },
     {
-        path: "contact-us",
+        path: 'contact-us',
         loadChildren: () => import('./contact-us/contact-us.module').then(mod => mod.ContactUsModule)
     }
 ];
