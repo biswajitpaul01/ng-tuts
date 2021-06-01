@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    --header-height: 72px;
+    --footer-height: 196px;
+}
+
 img {
     max-width: 100%;
 }
+
+.page-container {
+    min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+}
+

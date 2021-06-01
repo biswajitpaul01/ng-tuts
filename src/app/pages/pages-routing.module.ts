@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('./blog/posts/posts.module').then(mod => mod.PostsModule)
     },
     {
+        path: 'post-details/:id',
+        loadChildren: () => import('./blog/post-details/post-details.module').then(mod => mod.PostDetailsModule)
+    },
+    {
         path: 'async-pipes',
         // loadChildren: () => import('./async-pipe/async-pipe-routing.module').then(mod => mod.AsyncPipeRoutingModule),
         component: AsyncPipeComponent,
@@ -43,8 +47,12 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'post-details/:id',
-        loadChildren: () => import('./blog/post-details/post-details.module').then(mod => mod.PostDetailsModule)
+        path: 'template-form',
+        loadChildren: () => import('./forms/template-form/template-form.module').then(mod => mod.TemplateFormModule)
+    },
+    {
+        path: 'reactive-form',
+        loadChildren: () => import('./forms/reactive-form/reactive-forms.module').then(mod => mod.ReactiveFormModule)
     },
     {
         path: 'contact-us',

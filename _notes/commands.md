@@ -12,6 +12,10 @@
 
 > ng g m LoginModule --routing
 
+## Generate a module with routing & lazy loading
+
+> ng g m LoginModule --routing --route login
+
 ## Generate a component
 
 > ng g c LoginComponent
