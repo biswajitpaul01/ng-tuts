@@ -8,6 +8,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
     },
     {
+        path: 'ngmodel',
+        loadChildren: () => import('./ngmodel/ngmodel.module').then(mod => mod.NgmodelModule)
+    },
+    {
         path: 'webforms',
         loadChildren: () => import('./web-forms/web-forms.module').then(mod => mod.WebFormsModule)
     },

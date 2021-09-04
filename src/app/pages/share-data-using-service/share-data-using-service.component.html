@@ -6,6 +6,10 @@
     <div class="form-group mb-3">
         <input type="text" name="message" [(ngModel)]="message" class="form-control">
     </div>
-    {{ message }} | <button class="btn btn-primary btn-sm" (click)="sendNewMessage()">Send New Message</button>
+    <div class="alert alert-info">
+        <p>In share-data-using-service.component.html</p>
+        <strong>{{ message }}</strong>
+    </div>
+    <button class="btn btn-primary btn-sm" (click)="sendNewMessage()">Send New Message</button>
 </form>
 

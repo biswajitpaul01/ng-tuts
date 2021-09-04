@@ -9,6 +9,8 @@ export class WebFormsComponent implements OnInit {
 
     switchValue: number = 0;
 
+    age: any;
+
     constructor() { }
 
     ngOnInit(): void {

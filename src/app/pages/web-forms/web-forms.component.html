@@ -1,4 +1,5 @@
 <form>
+    <p class="lead mt-3">1. Using [(ngModel)]</p>
     <select class="form-select" name="optionbox" [(ngModel)]="switchValue" aria-label="Default select example">
         <option>Open this select menu</option>
         <option value="1">One</option>
@@ -7,11 +8,14 @@
       </select>
 
     <div [ngSwitch]="switchValue">
-        <div *ngSwitchDefault>No Text</div>
-        <div *ngSwitchCase="1">Text 1</div>
-        <div *ngSwitchCase="2">Text 2</div>
-        <div *ngSwitchCase="3">Text 3</div>
+        <div *ngSwitchDefault ngClass="text-primary">No Text</div>
+        <div *ngSwitchCase="1" ngClass="text-info">Text 1</div>
+        <div *ngSwitchCase="2" ngClass="text-info">Text 2</div>
+        <div *ngSwitchCase="3" ngClass="text-info">Text 3</div>
     </div>
-
     <p>Switch value: {{ switchValue }}</p>
+
+    <p class="lead mt-3">2. Using [ngModel] & (ngModelChange)</p>
+    <input type="text" [ngModel]="age" name="age" (ngModelChange)="age=$event" placeholder="Enter age">
+    <p *ngIf="age">Age: {{ age }}</p>
 </form>

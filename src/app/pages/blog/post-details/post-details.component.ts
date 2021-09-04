@@ -19,11 +19,26 @@ export class PostDetailsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        // Used to get url paramerter, eg. /posts/:id
-        let postId = <any> this.route.snapshot.paramMap.get("id");
+        /********* Used to get url paramerter, eg. /posts/:id *********/
+        // Type 1
+        // let postId = <any> this.route.snapshot.paramMap.get("id");
 
-        // Used to get url appended parameter, eg. ?author=John&price=10
-        let author = this.route.snapshot.queryParamMap.get("author");
+        // Type 2
+        let postId;
+        this.route.params.subscribe(data => {
+            postId = data.id;
+        });
+
+
+        /********* Used to get url appended parameter, eg. ?author=John&price=10 *********/
+        // Type 1
+        // let author = this.route.snapshot.queryParamMap.get("author");
+
+        // Type 2
+        let author;
+        this.route.paramMap.subscribe((data: any) => {
+            author = data.author;
+        });
 
         if (postId) {
             this.postDetails = this.blogService.getPostDetails(postId);
