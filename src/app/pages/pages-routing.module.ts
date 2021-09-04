@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AsyncPipeComponent} from './async-pipe/async-pipe.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
     {
@@ -61,6 +62,10 @@ const routes: Routes = [
     {
         path: 'contact-us',
         loadChildren: () => import('./contact-us/contact-us.module').then(mod => mod.ContactUsModule)
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ];
 

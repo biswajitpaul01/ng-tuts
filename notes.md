@@ -17,9 +17,9 @@
             - *NgSwitchDefault
         3. NgFor
     3. Attribute Directive: It is used to change the behaviour or the appearance of different elements, and these elements act as an attribute for the DOM elements.
-        1. NgStyle
-        2. NgClass
-        3. NgModel
+        1. NgStyle: adds and removes a set of HTML styles
+        2. NgClass: adds and removes a set of CSS classes
+        3. NgModel: adds two-way data binding to an HTML form element.
 
 ## Lifecycle Hooks
     constructor
@@ -35,7 +35,7 @@
 ## Sharing data between Angular Components
     1. @Input() decorator: share data from Parent component to child. @Input() is a decorator which accepts the input from the parent component and display the value into the child component template
     2. @Output decorator and EventEmitter: share data from child to parent component by emitting the event which can listen by the parent component. @Output is a decorator which becomes the output for the parent component and in order to get the message from the child, we can use EventEmitter.
-    3. @ViewChild: share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator.
+    3. @ViewChild: share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator. We can access elements in the view directly by #<name>.
     4. Services: share data amongst different components.
 
 ## ChangeDetectionStrategy
@@ -118,7 +118,7 @@
     9. queryParamsHandling
 
 ## Router events
-    When the navigation process started, at that time different event will be trigger at a specific point of time using the property Router.events.
+    When the navigation process started, at that time different event will be trigger at a specific point of time using the property Router.events
     1. NavigationStart
     2. RouteConfigLoadStart
     3. RouteConfigLoadEnd
@@ -153,38 +153,57 @@
 
 ## Angular Form
     1. Reactive Forms
-    2. Template-driven Forms    
+    2. Template-driven Forms   
 
-deedtmp+r3t4x@gmail.com - 03/09/2021
-an.d.rew.h.e.ren.an.tm.p@gmail.com - 03/09/2021
-s.a.lv.a.to.t.u.c.k.ertmp@gmail.com - 03/09/2021
-na.t.ha.nluisjame.st.m.p@gmail.com - 03/09/2021
-sdria76@gmailnator.com - 03/09/2021
-franc.o.bar.nett.tm.p@gmail.com - 03/09/2021
-ja.vi.e.rf.ranciscot.m.p@gmail.com - 03/09/2021
-f.let.c.h.e.rhar.vey.tmp@gmail.com - 03/09/2021
-lengtmp+rq7ey@gmail.com - 03/09/2021
-josero.d.r.i.qu.ez.tmp@gmail.com - 03/09/2021
-hay.a.d.av.i.d.s.ont.m.p@gmail.com - 03/09/2021
-a.dr.ie.nc.ama.c.h.otm.p@gmail.com - 03/09/2021
-carstmp+4rmhk@gmail.com - 03/09/2021
-a.dri.enca.mac.h.ot.m.p@gmail.com - 03/09/2021
-le.o.nel.kno.wl.et.m.p@gmail.com - 03/09/2021
-jo.na.t.h.a.nm.ic.hae.ltm.p@gmail.com - 03/09/2021
-wuvjeio@gmailnator.com - 03/09/2021
-owyetmp+cg45s@gmail.com - 03/09/2021
-mo.rt.a.l.ko.mba.tstmp@gmail.com - 03/09/2021
-hay.ada.v.ids.ontm.p@gmail.com - 03/09/2021
-koletmp+ds91p@gmail.com - 03/09/2021
-f.i.sh.e.r.a.dk.i.nstmp@gmail.com - 03/09/2021
-how.ar.dn.av.arro.tm.p@gmail.com - 03/09/2021
-combtmp+l76fd@gmail.com - 03/09/2021
-lacktmp+xlg2v@gmail.com - 03/09/2021
-aveltmp+xev5f@gmail.com - 03/09/2021
-cbxpxztmp+s9iym@gmail.com - 03/09/2021
-j.a.n.e.r.e.bec.calynnt.mp@gmail.com - 03/09/2021
-f.as.t.an.d.fu.r.iostm.p@gmail.com - 03/09/2021
-miyatmp+vus9f@gmail.com - 03/09/2021
-rox.a.nne.n.ic.hols.tmp@gmail.com - 03/09/2021
-ha.n.n.a.h.eliz.ab.et.htmp@gmail.com - 03/09/2021
-mari.okar.t.de.l.uxe.t.mp@gmail.com - free
+## Compilation Types in Angular
+    1. Just-in-Time (JIT): Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. JIT compilation is the default when you run the ng build (build only) or ng serve (build and serve locally) CLI commands.
+    ng build
+    ng serve
+
+    2. Ahead-of-Time (AOT): Ahead-of-Time (AOT) is a type of compilation that compiles your app at build time. For AOT compilation, include the --aot option with the ng build or ng serve command as below
+    ng build --aot
+    ng serve --aot
+__Note:__ The ng build command with the --prod meta-flag (`ng build --prod`) compiles with AOT by default.
+
+## Advantages with AOT
+    1. Faster rendering: The browser downloads a pre-compiled version of the application. So it can render the application immediately without compiling the app.
+    2. Fewer asynchronous requests: It inlines external HTML templates and CSS style sheets within the application javascript which eliminates separate ajax requests.
+    3. Smaller Angular framework download size: Doesn't require downloading the Angular compiler. Hence it dramatically reduces the application payload.
+    4. Detect template errors earlier: Detects and reports template binding errors during the build step itself
+    5. Better security: It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
+
+
+
+deedtmp+r3t4x@gmail.com - 03/09/2021   
+an.d.rew.h.e.ren.an.tm.p@gmail.com - 03/09/2021   
+s.a.lv.a.to.t.u.c.k.ertmp@gmail.com - 03/09/2021   
+na.t.ha.nluisjame.st.m.p@gmail.com - 03/09/2021   
+sdria76@gmailnator.com - 03/09/2021   
+franc.o.bar.nett.tm.p@gmail.com - 03/09/2021   
+ja.vi.e.rf.ranciscot.m.p@gmail.com - 03/09/2021   
+f.let.c.h.e.rhar.vey.tmp@gmail.com - 03/09/2021   
+lengtmp+rq7ey@gmail.com - 03/09/2021   
+josero.d.r.i.qu.ez.tmp@gmail.com - 03/09/2021   
+hay.a.d.av.i.d.s.ont.m.p@gmail.com - 03/09/2021   
+a.dr.ie.nc.ama.c.h.otm.p@gmail.com - 03/09/2021   
+carstmp+4rmhk@gmail.com - 03/09/2021   
+a.dri.enca.mac.h.ot.m.p@gmail.com - 03/09/2021   
+le.o.nel.kno.wl.et.m.p@gmail.com - 03/09/2021   
+jo.na.t.h.a.nm.ic.hae.ltm.p@gmail.com - 03/09/2021   
+wuvjeio@gmailnator.com - 03/09/2021   
+owyetmp+cg45s@gmail.com - 03/09/2021   
+mo.rt.a.l.ko.mba.tstmp@gmail.com - 03/09/2021   
+hay.ada.v.ids.ontm.p@gmail.com - 03/09/2021   
+koletmp+ds91p@gmail.com - 03/09/2021   
+f.i.sh.e.r.a.dk.i.nstmp@gmail.com - 03/09/2021   
+how.ar.dn.av.arro.tm.p@gmail.com - 03/09/2021   
+combtmp+l76fd@gmail.com - 03/09/2021   
+lacktmp+xlg2v@gmail.com - 03/09/2021   
+aveltmp+xev5f@gmail.com - 03/09/2021   
+cbxpxztmp+s9iym@gmail.com - 03/09/2021   
+j.a.n.e.r.e.bec.calynnt.mp@gmail.com - 03/09/2021   
+f.as.t.an.d.fu.r.iostm.p@gmail.com - 03/09/2021   
+miyatmp+vus9f@gmail.com - 03/09/2021   
+rox.a.nne.n.ic.hols.tmp@gmail.com - 03/09/2021   
+ha.n.n.a.h.eliz.ab.et.htmp@gmail.com - 03/09/2021   
+mari.okar.t.de.l.uxe.t.mp@gmail.com - free   
