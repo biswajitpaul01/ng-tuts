@@ -36,6 +36,16 @@
     1. @Input() decorator: share data from Parent component to child. @Input() is a decorator which accepts the input from the parent component and display the value into the child component template
     2. @Output decorator and EventEmitter: share data from child to parent component by emitting the event which can listen by the parent component. @Output is a decorator which becomes the output for the parent component and in order to get the message from the child, we can use EventEmitter.
     3. @ViewChild: share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator. We can access elements in the view directly by #<name>.
+        1. Type 1 
+        @ViewChild(ShareDataFirstChildComponent, {static: false}) sc: any;
+        In Angular 8, the static flag is required for ViewChild. Whereas in Angular9, you no longer need to pass this property. Once you updated to Angular9 using ng update, the migration will remove { static: false } script everywhere.
+        2. Type 2
+        <input #uname> 
+        @ViewChild('uname') input;
+
+        ngAfterViewInit() {
+            console.log(this.input.nativeElement.value);
+        }
     4. Services: share data amongst different components.
 
 ## ChangeDetectionStrategy
@@ -50,11 +60,12 @@
     5. Shared module
 
 @NgModule contains the various metadata options like:
-    1. declarations
-    2. imports
+    1. declarations: The declarations option is used to define components in the respective module
+    2. imports: The imports option is used to import other dependent modules. The BrowserModule is required by default for any web based angular application
     3. exports
-    4. providers
-    5. bootstrap
+    4. providers: The providers option is used to configure set of injectable objects that are available in the injector of this module.
+    5. bootstrap: The bootstrap option tells Angular which Component to bootstrap in the application
+    6. entryComponents: The entryComponents option is a set of components dynamically loaded into the view.
 
 ## Feature Modules
     1. Domain feature modules
