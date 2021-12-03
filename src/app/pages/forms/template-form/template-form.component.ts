@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-template-form',
@@ -15,8 +16,12 @@ export class TemplateFormComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    submitForm(value: any): void {
-        console.log('form value', value);
+    submitForm(form: NgForm): void {
+        console.log('form value', form.value);
+
+        // Note: https://stackoverflow.com/questions/41500102/cleanest-way-to-reset-forms/43985754#43985754
+        form.reset();
+        // form.resetForm();
     }
 
 }

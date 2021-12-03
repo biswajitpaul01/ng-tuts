@@ -7,8 +7,8 @@
     3. Event binding (click, submit)
 
 ## Directives
-    Directives is basically a class with the (@) decorator and used for class metadata in typescript.
-    1. Component Directive:
+    Directive is used to add behavior to an existing DOM element. Directives is basically a class with the (@) decorator and used for class metadata in typescript.
+    1. Component Directive: These are directives with a template.
     2. Structural Directive: It is used to manipulate the DOM by adding or removing HTML elements at a time
         1. NgIf
         2. NgSwitch
@@ -34,13 +34,34 @@
 
 ## Sharing data between Angular Components
     1. @Input() decorator: share data from Parent component to child. @Input() is a decorator which accepts the input from the parent component and display the value into the child component template
+        @Input() parentCounter: number = 0;
+
     2. @Output decorator and EventEmitter: share data from child to parent component by emitting the event which can listen by the parent component. @Output is a decorator which becomes the output for the parent component and in order to get the message from the child, we can use EventEmitter.
+        // [In Child]
+        // .ts file
+        @Output() childMessage = new EventEmitter();
+
+        passDataToParent() {
+            this.childMessage.emit({
+                name: this.names[Math.floor(Math.random() * 6)]
+            });
+        }
+
+        // [In parent]
+        // .html file
+        <app-share-data-first-child [parentCounter]="countIndex" (childMessage)="setChildMessage($event)"></app-share-data-first-child>
+
+        // .ts file
+        setChildMessage(data: any) {
+            this.childMessageName = data.name;
+        }
+
     3. @ViewChild: share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator. We can access elements in the view directly by #<name>.
-        1. Type 1 
+        1. Type 1
         @ViewChild(ShareDataFirstChildComponent, {static: false}) sc: any;
         In Angular 8, the static flag is required for ViewChild. Whereas in Angular9, you no longer need to pass this property. Once you updated to Angular9 using ng update, the migration will remove { static: false } script everywhere.
         2. Type 2
-        <input #uname> 
+        <input #uname>
         @ViewChild('uname') input;
 
         ngAfterViewInit() {
@@ -48,9 +69,28 @@
         }
     4. Services: share data amongst different components.
 
+## Difference between observable and promise
+
+| Observables  |  Promises |   
+|---|---|   
+| Emit multiple values over a period of time.  |  Emit a single value at a time. |   
+| Are lazy: they're not executed until we subscribe to them using the subscribe() method.  | Are not lazy: execute immediately after creation.  |   
+| Have subscriptions that are cancellable using the unsubscribe() method, which stops the listener from receiving further values. | Are not cancellable.  |   
+| Provide the map for forEach, filter, reduce, retry, and retryWhen operators.  | Don’t provide any operations.  |   
+| Deliver errors to the subscribers.  | Push errors to the child promises.  |   
+
+## What is the purpose of async pipe?
+The Async Pipe subscribes to an observable or promise and returns the latest value it has emitted. When a new value is emitted, the pipe marks the component to be checked for changes.
+
 ## ChangeDetectionStrategy
-    1. Default
-    2. OnPush
+    1. Default: By default, Angular makes no assumption on what the component depends upon. So it has to be conservative and will checks every time something may have changed, this is called dirty checking. In a more concrete way, it will perform checks for each browser events, timers, XHRs and promises.
+    This can be problematic when you’re starting to have a big application with many components, specially if you’re focused on performance.
+    2. OnPush: When using the onPush strategy on the component, you basically say to Angular that it should not make any guess on when it needs to perform the check for change. It will rely only on the change of the Input references, some events triggered by itself (the component) or one of its children. Lastly, you, the developer, can ask explicitly Angular to do it with the componentRef.markForCheck() method.
+    With onPush, the component only depends on its inputs and embraces the immutability, the change detection strategy will kicks in when:
+    The Input reference changes;
+    - An event originated from the component or one of its children;
+    - Run change detection explicitly (componentRef.markForCheck());
+    - Use the async pipe in the view.
 
 ## Modules
     1. Routing module
@@ -59,13 +99,13 @@
     4. Widget module
     5. Shared module
 
-@NgModule contains the various metadata options like:
-    1. declarations: The declarations option is used to define components in the respective module
-    2. imports: The imports option is used to import other dependent modules. The BrowserModule is required by default for any web based angular application
-    3. exports
-    4. providers: The providers option is used to configure set of injectable objects that are available in the injector of this module.
-    5. bootstrap: The bootstrap option tells Angular which Component to bootstrap in the application
-    6. entryComponents: The entryComponents option is a set of components dynamically loaded into the view.
+@NgModule contains the various metadata options like:   
+    1. declarations: The declarations option is used to define components in the respective module   
+    2. imports: The imports option is used to import other dependent modules. The BrowserModule is required by default for any web based angular application   
+    3. exports: When you want to share component outside of a module in another component   
+    4. providers: The providers option is used to configure set of injectable objects that are available in the injector of this module.   
+    5. bootstrap: The bootstrap option tells Angular which Component to bootstrap in the application   
+    6. entryComponents: The entryComponents option is a set of components dynamically loaded into the view.   
 
 ## Feature Modules
     1. Domain feature modules
@@ -78,6 +118,7 @@
     The bootstrapped component is an entry component which loads the DOM during the bootstrapping process. In other words, we can say that entry components are the one, which we are not referencing by type, thus it will be included during the bootstrapping mechanism.
 
 ## Providers
+    Providers are classes that create and manage service objects the first time that Angular needs to resolve a dependency. Providers is used to register the classes to an angular module as a service.And then, this service classes can be used by other components during the itself creation phase in the module. 
     Providers are used to injecting the token to a dependency via constructor of the component, directives and other classes as well.
 
 ## Pipes
@@ -85,7 +126,7 @@
     1. Pure pipes
         By default, in Angular, pipes are pure, and every pipe created in the angular are pure by nature.
     2. Impure pipes
-        We can also create impure pipe by providing pure to false as describe below.
+        We can also create impure pipe by providing pure to false.
 
 ## Built-In Pipes
     1. Date pipes
@@ -119,17 +160,31 @@
 ## RouterLink
     RouterLink in Angular is a Directive and used to transfer the route from one component to another by identifying the route value which is configured in the router module.
     1. routerLink
+
     2. queryParams
-    3. fragment
-    4. preserveFragment
+        // Navigate to /results?page=1
+        this.router.navigate(['/results'], { queryParams: { page: 1 } });
+
+    3. fragment: Sets the hash fragment for the URL
+        // Navigate to /results#top
+        this.router.navigate(['/results'], { fragment: 'top' });
+
+    4. preserveFragment: When true, preserves the URL fragment for the next navigation
+        // Preserve fragment from /results#top to /view#top
+        this.router.navigate(['/view'], { preserveFragment: true });
+
     5. replaceUrl
+
     6. preserveQueryParams
+
     7. urlTree
+
     8. skipLocationChange
+
     9. queryParamsHandling
 
 ## Router events
-    When the navigation process started, at that time different event will be trigger at a specific point of time using the property Router.events
+    When the navigation process started, at that time different event will be triggered at a specific point of time using the property Router.events
     1. NavigationStart
     2. RouteConfigLoadStart
     3. RouteConfigLoadEnd
@@ -149,6 +204,7 @@
 
 ## RouterOutlet
     RouterOutlet is a directive provided by Angular which is used to load the different components based on the router state.
+    <router-outlet></router-outlet>
 
 ## RouterLinkActive
     RouterLinkActive in Angular is used to provide a CSS class whenever any link will be clicked by the user and using this attribute, we can change styles of that link.
@@ -158,20 +214,22 @@
     2. Hash Location Strategy: To enable Hash-based routing, we need to use Hash location strategy when Hash (#) will be appended to the URL. While implementing hash-based routing strategy, we need to pass Boolean useHash to true.
 
 ## Route loading
-    1. Pre-Loading
-    2. Eager Loading
-    3. Lazy Loading
+    1. Pre-Loading: Feature Modules under Pre-Loading would be loaded automatically after the application starts.
+    2. Eager Loading: Feature modules under Eager Loading would be loaded before the application starts. This is the default module-loading strategy.
+    3. Lazy Loading: Feature modules under Lazy Loading would be loaded on demand after the application starts. It helps to start application faster.
 
 ## Angular Form
     1. Reactive Forms
-    2. Template-driven Forms   
+        The difference between resetForm and reset is that the former will clear the form fields as well as any validation, while the later will only clear the fields. Use resetForm after the form is validated and submitted, otherwise use reset.
+    2. Template-driven Forms
 
 ## Compilation Types in Angular
     1. Just-in-Time (JIT): Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. JIT compilation is the default when you run the ng build (build only) or ng serve (build and serve locally) CLI commands.
     ng build
     ng serve
 
-    2. Ahead-of-Time (AOT): Ahead-of-Time (AOT) is a type of compilation that compiles your app at build time. For AOT compilation, include the --aot option with the ng build or ng serve command as below
+    2. Ahead-of-Time (AOT): The Angular ahead-of-time (AOT) compiler converts your Angular HTML and TypeScript code into efficient JavaScript code during the build phase before the browser downloads and runs that code. Compiling your application during the build process provides a faster rendering in the browser.
+    Ahead-of-Time (AOT) is a type of compilation that compiles your app at build time. For AOT compilation, include the --aot option with the ng build or ng serve command as below
     ng build --aot
     ng serve --aot
 __Note:__ The ng build command with the --prod meta-flag (`ng build --prod`) compiles with AOT by default.
@@ -183,38 +241,14 @@ __Note:__ The ng build command with the --prod meta-flag (`ng build --prod`) com
     4. Detect template errors earlier: Detects and reports template binding errors during the build step itself
     5. Better security: It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
 
+## Subject vs BehvaiorSubject
 
+|   | Subject  |  BehaviorSubject |
+|---|---|---|
+| Holding Values  |  If you subscribe to an subject, you won’t get the current value or initial value. | But when you subscribe to an Behavior Subject, you will be able to get the current value or the initial value.  |
+| Defining Values  | You don’t have to define a default value whenever you declare the subject.  | But you have to define a default value whenever you declare Behavior Subject based upon the data type.  |
+|  Subscribers | In Subject, each next subscribers receive only the upcoming values.  | In Behavior Subject, each next subscribers receive one previous value and upcoming values.  |
+|  Observable | Observable is a Generic, and Behavior Subject is technically a sub–type of Observable because BehaviorSubject is an observable with specific qualities.   |  And when it comes to Subject and Observable is that a Subject has state, it keeps a list of observers. On the other hand, an observable is just a function that sets up observation. |
+|  Reusablity | Both Subject and BehaviorSubject cannot be reused once you unsubscribe the respective Subject.  | Both Subject and BehaviorSubject cannot be reused once you unsubscribe the respective Subject.  |
 
-deedtmp+r3t4x@gmail.com - 03/09/2021   
-an.d.rew.h.e.ren.an.tm.p@gmail.com - 03/09/2021   
-s.a.lv.a.to.t.u.c.k.ertmp@gmail.com - 03/09/2021   
-na.t.ha.nluisjame.st.m.p@gmail.com - 03/09/2021   
-sdria76@gmailnator.com - 03/09/2021   
-franc.o.bar.nett.tm.p@gmail.com - 03/09/2021   
-ja.vi.e.rf.ranciscot.m.p@gmail.com - 03/09/2021   
-f.let.c.h.e.rhar.vey.tmp@gmail.com - 03/09/2021   
-lengtmp+rq7ey@gmail.com - 03/09/2021   
-josero.d.r.i.qu.ez.tmp@gmail.com - 03/09/2021   
-hay.a.d.av.i.d.s.ont.m.p@gmail.com - 03/09/2021   
-a.dr.ie.nc.ama.c.h.otm.p@gmail.com - 03/09/2021   
-carstmp+4rmhk@gmail.com - 03/09/2021   
-a.dri.enca.mac.h.ot.m.p@gmail.com - 03/09/2021   
-le.o.nel.kno.wl.et.m.p@gmail.com - 03/09/2021   
-jo.na.t.h.a.nm.ic.hae.ltm.p@gmail.com - 03/09/2021   
-wuvjeio@gmailnator.com - 03/09/2021   
-owyetmp+cg45s@gmail.com - 03/09/2021   
-mo.rt.a.l.ko.mba.tstmp@gmail.com - 03/09/2021   
-hay.ada.v.ids.ontm.p@gmail.com - 03/09/2021   
-koletmp+ds91p@gmail.com - 03/09/2021   
-f.i.sh.e.r.a.dk.i.nstmp@gmail.com - 03/09/2021   
-how.ar.dn.av.arro.tm.p@gmail.com - 03/09/2021   
-combtmp+l76fd@gmail.com - 03/09/2021   
-lacktmp+xlg2v@gmail.com - 03/09/2021   
-aveltmp+xev5f@gmail.com - 03/09/2021   
-cbxpxztmp+s9iym@gmail.com - 03/09/2021   
-j.a.n.e.r.e.bec.calynnt.mp@gmail.com - 03/09/2021   
-f.as.t.an.d.fu.r.iostm.p@gmail.com - 03/09/2021   
-miyatmp+vus9f@gmail.com - 03/09/2021   
-rox.a.nne.n.ic.hols.tmp@gmail.com - 03/09/2021   
-ha.n.n.a.h.eliz.ab.et.htmp@gmail.com - 03/09/2021   
-mari.okar.t.de.l.uxe.t.mp@gmail.com - free   
+Read more: https://devsuhas.com/2019/12/09/difference-between-subject-and-behaviour-subject-in-rxjs/

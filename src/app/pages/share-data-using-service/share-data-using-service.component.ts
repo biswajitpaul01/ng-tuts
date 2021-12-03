@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MyDataServiceService } from 'src/app/core/services/my-data-service.service';
+import * as faker from 'faker';
 
 @Component({
     selector: 'app-share-data-using-service',
@@ -19,6 +20,7 @@ export class ShareDataUsingServiceComponent implements OnInit, OnDestroy {
     }
 
     sendNewMessage(): void {
+        console.log('random name', faker.name.findName());
         this.dataService.changeMessage(this.message);
     }
 

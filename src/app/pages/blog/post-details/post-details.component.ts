@@ -36,7 +36,7 @@ export class PostDetailsComponent implements OnInit {
 
         // Type 2
         let author;
-        this.route.paramMap.subscribe((data: any) => {
+        this.route.queryParams.subscribe((data: any) => {
             author = data.author;
         });
 

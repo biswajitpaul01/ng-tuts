@@ -41,6 +41,10 @@ const routes: Routes = [
         loadChildren: () => import('./blog/post-details/post-details.module').then(mod => mod.PostDetailsModule)
     },
     {
+        path: 'builtin-pipes',
+        loadChildren: () => import('./pipes/pipes.module').then(m => m.PipesModule)
+    },
+    {
         path: 'async-pipes',
         // loadChildren: () => import('./async-pipe/async-pipe-routing.module').then(mod => mod.AsyncPipeRoutingModule),
         component: AsyncPipeComponent,

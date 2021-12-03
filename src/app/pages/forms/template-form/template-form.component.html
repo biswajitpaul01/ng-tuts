@@ -1,6 +1,6 @@
 <p>template-form works!</p>
 
-<form #loginForm="ngForm" (ngSubmit)="submitForm(loginForm.value)" autocomplete="off">
+<form #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)" autocomplete="off">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" name="email" [(ngModel)]="model.email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
