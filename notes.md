@@ -56,11 +56,12 @@
             this.childMessageName = data.name;
         }
 
-    3. @ViewChild: share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator. We can access elements in the view directly by #<name>.
-        1. Type 1
+    3. @ViewChild:
+        1. Type 1 - To access the child component from the parent component. share the data from child to parent component. @ViewChild is used to inject the one component into another component using @ViewChild() decorator. 
         @ViewChild(ShareDataFirstChildComponent, {static: false}) sc: any;
         In Angular 8, the static flag is required for ViewChild. Whereas in Angular9, you no longer need to pass this property. Once you updated to Angular9 using ng update, the migration will remove { static: false } script everywhere.
-        2. Type 2
+
+        2. Type 2 - To access the DOM element from the component. We can access elements in the view directly by #<name>.
         <input #uname>
         @ViewChild('uname') input;
 
@@ -241,14 +242,81 @@ __Note:__ The ng build command with the --prod meta-flag (`ng build --prod`) com
     4. Detect template errors earlier: Detects and reports template binding errors during the build step itself
     5. Better security: It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
 
-## Subject vs BehvaiorSubject
+## Subject vs BehaviorSubject
 
 |   | Subject  |  BehaviorSubject |
 |---|---|---|
-| Holding Values  |  If you subscribe to an subject, you won’t get the current value or initial value. | But when you subscribe to an Behavior Subject, you will be able to get the current value or the initial value.  |
 | Defining Values  | You don’t have to define a default value whenever you declare the subject.  | But you have to define a default value whenever you declare Behavior Subject based upon the data type.  |
+| Holding Values  |  If you subscribe to an subject, you won’t get the current value or initial value. | But when you subscribe to an Behavior Subject, you will be able to get the current value or the initial value.  |
 |  Subscribers | In Subject, each next subscribers receive only the upcoming values.  | In Behavior Subject, each next subscribers receive one previous value and upcoming values.  |
 |  Observable | Observable is a Generic, and Behavior Subject is technically a sub–type of Observable because BehaviorSubject is an observable with specific qualities.   |  And when it comes to Subject and Observable is that a Subject has state, it keeps a list of observers. On the other hand, an observable is just a function that sets up observation. |
 |  Reusablity | Both Subject and BehaviorSubject cannot be reused once you unsubscribe the respective Subject.  | Both Subject and BehaviorSubject cannot be reused once you unsubscribe the respective Subject.  |
 
 Read more: https://devsuhas.com/2019/12/09/difference-between-subject-and-behaviour-subject-in-rxjs/
+
+
+__Important:__ For Two-Way-Binding to work, you need to enable the `ngModel` directive. This is done by adding the `FormsModule` to the `imports[]` array in the AppModule. If you are using [(ngModel)] inside form tag, you should always use `name` attribute in the form inputs. Without form tag, there will be no issue to use [(ngModel)].
+
+>> import { FormsModule } from '@angular/forms';
+
+
+## @ViewChild() in Angular 8+
+In Angular 8+, the `@ViewChild()` syntax which you'll see in the next lecture needs to be changed slightly:
+
+Instead of:
+
+> @ViewChild('serverContentInput') serverContentInput: ElementRef;   
+
+use
+
+> @ViewChild('serverContentInput', {static: true}) serverContentInput: ElementRef;
+
+The same change (add `{ static: true }` as a second argument) needs to be applied to ALL usages of `@ViewChild()` (and also `@ContentChild()` which you'll learn about later) IF you plan on accessing the selected element inside of `ngOnInit()`.
+
+If you DON'T access the selected element in `ngOnInit` (but anywhere else in your component), set `static: false` instead!
+
+If you're using Angular 9+, you only need to add `{ static: true }` (if needed) but not `{ static: false }`
+
+## Services in Angular 6+
+
+If you're using Angular 6+ (check your `package.json` to find out), you can provide application-wide services in a different way.
+
+Instead of adding a service class to the `providers[]` array in `AppModule`, you can set the following config in `@Injectable()`:
+
+~~~ts
+@Injectable({providedIn: 'root'})
+export class MyService { ... }
+~~~
+
+This is exactly the same as:
+
+~~~ts
+export class MyService { ... }
+~~~
+
+and
+
+~~~ts
+import { MyService } from './path/to/my.service';
+ 
+@NgModule({
+    ...
+    providers: [MyService]
+})
+export class AppModule { ... }
+~~~
+
+Using this new syntax is completely optional, the traditional syntax (using `providers[]`) will still work. The "new syntax" does offer one advantage though: Services can be loaded lazily by Angular (behind the scenes) and redundant code can be removed automatically. This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
+
+
+## Deleting all Items in a FormArray
+
+As of Angular 8+, there's a new way of clearing all items in a `FormArray`
+
+~~~ts
+(<FormArray>this.recipeForm.get('ingredients')).clear();
+~~~
+
+The `clear()` method automatically loops through all registered `FormControl`s (or `FormGroups`) in the FormArray and removes them.
+
+It's like manually creating a loop and calling `removeAt()` for every item.
