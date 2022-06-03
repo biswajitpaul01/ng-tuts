@@ -320,3 +320,15 @@ As of Angular 8+, there's a new way of clearing all items in a `FormArray`
 The `clear()` method automatically loops through all registered `FormControl`s (or `FormGroups`) in the FormArray and removes them.
 
 It's like manually creating a loop and calling `removeAt()` for every item.
+
+
+## ReplaySubject   
+
+## AsyncSubject   
+
+
+More on: https://stackoverflow.com/questions/42026045/difference-between-angulars-canload-and-canactivate#60294718   
+
+__canLoad__: The `canLoad` Guard prevents the loading of the Lazy Loaded Module. We generally use this guard when we do not want to unauthorized user to navigate to any of the routes of the module and also stop then even see the source code of the module.
+
+__canActivate__: The Angular provides `canActivate` Guard, which prevents unauthorized user from accessing the route. But it does not stop the module from being downloaded. The user can use the chrome developer console to see the source code. The CanLoad Guard prevents the module from being downloaded.

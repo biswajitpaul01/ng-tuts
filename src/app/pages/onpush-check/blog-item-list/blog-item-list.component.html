@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <li
+        class="list-group-item text-truncate"
+        role="button"
+        *ngFor="let post of posts | async"
+        [routerLink]="[post.id]"
+        [title]="post.title"
+    >{{ post.title | titlecase }}</li>
+</ul>

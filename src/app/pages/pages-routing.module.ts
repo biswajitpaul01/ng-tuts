@@ -68,6 +68,10 @@ const routes: Routes = [
         loadChildren: () => import('./contact-us/contact-us.module').then(mod => mod.ContactUsModule)
     },
     {
+        path: 'onpush-check',
+        loadChildren: () => import('./onpush-check/onpush-check.module').then(mod => mod.OnpushCheckModule)
+    },
+    {
         path: '**',
         component: NotFoundComponent
     }
